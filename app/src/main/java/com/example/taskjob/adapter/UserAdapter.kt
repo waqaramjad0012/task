@@ -8,17 +8,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskjob.R
+import com.example.taskjob.data.EndUser
 import com.example.taskjob.data.User
 
 class UserAdapter(
-    private val userList: List<User>,
+    private var userList: List<EndUser>,
     private val listener: OnUserItemClickListener
 ) : RecyclerView.Adapter<UserAdapter.MyViewHolder>() {
 
     interface OnUserItemClickListener {
-        fun onEditButtonClick(user: User)
-        fun onDeleteButtonClick(user: User)
-        fun onUserItemClick(user: User)
+        fun onEditButtonClick(user: EndUser)
+        fun onDeleteButtonClick(user: EndUser)
+        fun onUserItemClick(user: EndUser)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -44,6 +45,12 @@ class UserAdapter(
         return userList.size
     }
 
+    fun refreshList(data:List<EndUser>)
+    {
+
+        userList=data
+        notifyDataSetChanged()
+    }
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val lyView:LinearLayout=view.findViewById(R.id.lyView)

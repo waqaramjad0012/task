@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TaskJob</string>
+    <string name="app_name">Zone Delivery Task</string>
     <string name="title_activity_login_screen">LoginScreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>

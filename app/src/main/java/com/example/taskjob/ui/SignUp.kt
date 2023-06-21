@@ -39,7 +39,14 @@ class SignUp : AppCompatActivity() {
 
         binding.signup.setOnClickListener {
 
-            signUpUser(viewModel.email.value!!,viewModel.password.value!!,viewModel.name.value!!,viewModel.id.value!!)
+            if(isemailValid(viewModel.email.value)==true && viewModel.password.value?.let { it1 ->
+                    isPasswordValid(
+                        it1
+                    )
+                } ==true)
+            {
+            signUpUser(viewModel.email.value!!,viewModel.password.value!!)
+            }
         }
         binding.signIn.setOnClickListener {
             startActivity(Intent(this,LoginScreenActivity::class.java))
@@ -48,52 +55,65 @@ class SignUp : AppCompatActivity() {
 
     }
 
-    private fun signUpUser(email: String, password: String, name: String, id: String) {
+    private fun isPasswordValid(password:String): Boolean {
 
-        Toast.makeText(this, "$email, $password", Toast.LENGTH_SHORT).show()
+        return password.length>=6;
+    }
+
+    private fun isemailValid(email: String?): Boolean? {
+        val regexPattern = Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}")
+        return email?.let { regexPattern.matches(it) }
+    }
+
+
+    private fun signUpUser(email: String, password: String) {
+
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
 
-                    if (user != null) {
-                        val userData = HashMap<String, Any>()
-                        userData["email"] = email
-                        userData["name"] = name
-                        userData["id"] = id
-
-                        val us= User(name,id,email,password,viewModel.lat,viewModel.longi)
-                        firestore.collection("users").document(id)
-                            .set(us)
-                            .addOnSuccessListener {
-                                Toast.makeText(this@SignUp, "User SignUp!!", Toast.LENGTH_SHORT).show()
-                                gotoLogin()
-                            }
-                            .addOnFailureListener { e ->
-                                Toast.makeText(this@SignUp, e.localizedMessage, Toast.LENGTH_SHORT)
-                                    .show()
-                            }
-
-
-//                        firestore.collection("users")
-//                            .document(user.uid)
-//                            .set(userData)
+                    Toast.makeText(this, "user sign up successful!", Toast.LENGTH_SHORT).show()
+                    gotoLogin()
+//                    if (user != null) {
+//                        val userData = HashMap<String, Any>()
+//                        userData["email"] = email
+//                        userData["name"] = name
+//                        userData["id"] = id
+//
+//                        val us= User(name,id,email,password,viewModel.lat,viewModel.longi)
+//                        firestore.collection("users").document(email)
+//                            .set(us)
 //                            .addOnSuccessListener {
-//                                Toast.makeText(
-//                                    this,
-//                                    "User created successfully",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                                // Perform any further actions after successful sign-up
+//                                Toast.makeText(this@SignUp, "User SignUp!!", Toast.LENGTH_SHORT).show()
+//                                gotoLogin()
 //                            }
 //                            .addOnFailureListener { e ->
-//                                Toast.makeText(
-//                                    this,
-//                                    "Error creating User: ${e.message}",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
+//                                Toast.makeText(this@SignUp, e.localizedMessage, Toast.LENGTH_SHORT)
+//                                    .show()
 //                            }
-                    }
+//
+//
+////                        firestore.collection("users")
+////                            .document(user.uid)
+////                            .set(userData)
+////                            .addOnSuccessListener {
+////                                Toast.makeText(
+////                                    this,
+////                                    "User created successfully",
+////                                    Toast.LENGTH_SHORT
+////                                ).show()
+////                                // Perform any further actions after successful sign-up
+////                            }
+////                            .addOnFailureListener { e ->
+////                                Toast.makeText(
+////                                    this,
+////                                    "Error creating User: ${e.message}",
+////                                    Toast.LENGTH_SHORT
+////                                ).show()
+////                            }
+//                    }
                 } else {
                     Toast.makeText(
                         this,

@@ -77,15 +77,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:hint="Id card">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/idEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-
                             android:inputType="text"
-                            android:text="@={signupdata.id}" />
+                             />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
