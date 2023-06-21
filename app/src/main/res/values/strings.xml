@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">TaskJob</string>
+    <string name="title_activity_login_screen">LoginScreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="edit_image">edit image</string>
+    <string name="delete_image">delete image</string>
+    <string name="forgot_password_icon_description">forgot your password</string>
+    <string name="forgot_password_title">Forgot your password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="forgot_password_description">Enter your email address below to reset your password.</string>
+    <string name="email_hint">Email</string>
+</resources>
